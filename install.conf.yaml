@@ -24,6 +24,7 @@
 - link:
     ~/.vimrc: vim/.vimrc
     ~/.zshrc: zsh/.zshrc
+    ~/.tmux.conf: tmux/tmux.conf
 
 # Create commands specify empty directories to be created.
 - create:
