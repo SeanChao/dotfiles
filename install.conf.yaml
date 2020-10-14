@@ -2,23 +2,21 @@
     link:
       create: true
       relink: true # Removes the old target if it's a symlink (default: false)
+    shell:
+      stdout: true
+      stderr: true
 
 # Clean commands specify directories that should be checked for dead symbolic 
 # links. These dead links are removed automatically.
 - clean: ["~"]
 
 - shell:
-    - chsh -s $(which zsh)
     - [git submodule update --init --recursive, Installing submodules]
-    - [bash deps/install.sh, Install some packages]
-    -
-      command: zsh zsh/setup.zsh
-      stdout: true
+    - command: bash deps/install.sh
+      description: Install some packages
+    - command: zsh zsh/setup.zsh
       description: Setup on-my-zsh
-    - 
-      command: zsh zsh/plugins.zsh
-      stdout: true
-      stderr: true
+    - command: zsh zsh/plugins.zsh
       description: Install plugins
 
 - link:

@@ -144,6 +144,8 @@ plugins=(
 )
 
 ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOCONNECT=true
+ZSH_TMUX_AUTOQUIT=false
 ZSH_TMUX_UNICODE=true
 
 source $ZSH/oh-my-zsh.sh
@@ -187,3 +189,6 @@ nvm() {
   # Call nvm
   $0 "$@"
 }
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+export PATH="$(rbenv which ruby):$PATH"

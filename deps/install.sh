@@ -4,5 +4,5 @@ sudo ()
     "$@"
 }
 
-sudo pip install wakatime
+pip install wakatime
 sudo apt install -y tmux
