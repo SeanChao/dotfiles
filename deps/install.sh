@@ -4,5 +4,6 @@ sudo ()
     "$@"
 }
 
-pip install wakatime
-sudo apt install -y tmux
+sudo apt-get update >/dev/null && \
+    sudo apt-get install -y python3 python3-pip tmux zsh && \
+    command -v pip && pip install wakatime

@@ -133,7 +133,7 @@ ENABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(
+plugins+=(
   docker
   docker-compose
   git
@@ -191,4 +191,4 @@ nvm() {
 }
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
-export PATH="$(rbenv which ruby):$PATH"
+command -v rbenv && export PATH="$(rbenv which ruby):$PATH"
