@@ -12,4 +12,4 @@ git clone $GIT_ZSHTHEME_REPO /tmp/chaos-theme-tmp
 cp /tmp/chaos-theme-tmp/chaos.zsh-theme ~/.oh-my-zsh/custom/themes/
 rm -r /tmp/chaos-theme-tmp
 
-echo 'Run chsh $(which zsh) manually to set zsh as default shell'
+echo 'Run chsh -s $(which zsh) manually to set zsh as default shell'
