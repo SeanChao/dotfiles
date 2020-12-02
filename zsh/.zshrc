@@ -22,10 +22,12 @@ alias winip='cat /etc/resolv.conf'
 bindkey "^[^[[C" forward-word
 
 # PATH
+export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.nvm/versions/node/v14.4.0/bin"
 export PATH="$PATH:$HOME/.yarn/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/sdk/go1.15/bin"
+export PATH="$PATH:$HOME/go/bin"
 
 # TMUX
 export EDITOR='vim'
@@ -35,6 +37,7 @@ if [[ $IS_WSL == "true" ]]; then
   export winip="sean-laptop.mshome.net"
   export http_proxy=http://${winip}:${HTTP_PROXY_PORT}
   export https_proxy=http://${winip}:${HTTP_PROXY_PORT}
+  export NO_PROXY="localhost,127.0.0.1"
   export DISPLAY=${winip}:0.0
   export c=/mnt/c
   export star=/mnt/c/star
