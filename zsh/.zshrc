@@ -23,25 +23,29 @@ bindkey "^[^[[C" forward-word
 
 # PATH
 export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/.nvm/versions/node/v14.4.0/bin"
+export PATH="$PATH:$HOME/.nvm/versions/node/*/bin"
 export PATH="$PATH:$HOME/.yarn/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/sdk/go1.15/bin"
 export PATH="$PATH:$HOME/go/bin"
+[ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
 # TMUX
 export EDITOR='vim'
 
 # WSL2
 if [[ $IS_WSL == "true" ]]; then
-  export winip="sean-laptop.mshome.net"
+  if [ -z $WSL_ADDR ]; then
+    WSL_ADDR=$(cat /etc/resolv.conf | grep nameserver | cut -d ' ' -f 2)
+  fi
+  export winip=$WSL_ADDR
   export http_proxy=http://${winip}:${HTTP_PROXY_PORT}
   export https_proxy=http://${winip}:${HTTP_PROXY_PORT}
   export NO_PROXY="localhost,127.0.0.1"
   export DISPLAY=${winip}:0.0
   export c=/mnt/c
   export star=/mnt/c/star
-  export dl="/mnt/c/Users/SeanC/Downloads"
+  export dl="/mnt/c/Users/Sean/Downloads"
   export docker_proxy="--env HTTP_PROXY=\"${http_proxy}\" --env HTTPS_PROXY=\"${https_proxy}\""
   # git proxy in WSL2
   git config --global http.proxy http://$winip:${HTTP_PROXY_PORT}
@@ -182,16 +186,19 @@ export LANG=en_US.UTF-8
 # NVM
 export NVM_DIR="$HOME/.nvm"
 
-nvm() {
-  echo "Lazy loading nvm..."
-  # Remove nvm function
-  unfunction "$0"
-  # Load nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-  # Call nvm
-  $0 "$@"
-}
+# nvm() {
+#   echo "Lazy loading nvm..."
+#   # Remove nvm function
+#   unfunction "$0"
+#   # Load nvm
+#   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+#   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+#   # Call nvm
+#   $0 "$@"
+# }
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 command -v rbenv && export PATH="$(rbenv which ruby):$PATH"
