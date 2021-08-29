@@ -1,7 +1,3 @@
-if [[ -r ~/.local.zshrc ]]; then
-  source ~/.local.zshrc
-fi
-
 # Environment Variable
 export HTTP_PROXY_PORT=1080
 export SOCKS_PROXY_PORT=1080
@@ -16,7 +12,6 @@ alias lsa='ls -lah'
 alias md='mkdir -p'
 alias py=python3
 alias ww='cd ~/cstar'
-alias winip='cat /etc/resolv.conf'
 
 # bindkey
 bindkey "^[^[[C" forward-word
@@ -42,7 +37,7 @@ if [[ $IS_WSL == "true" ]]; then
   export http_proxy=http://${winip}:${HTTP_PROXY_PORT}
   export https_proxy=http://${winip}:${HTTP_PROXY_PORT}
   export NO_PROXY="localhost,127.0.0.1"
-  export DISPLAY=${winip}:0.0
+#  export DISPLAY=${winip}:0.0
   export c=/mnt/c
   export star=/mnt/c/star
   export dl="/mnt/c/Users/Sean/Downloads"
@@ -58,6 +53,9 @@ if [[ $IS_WSL == "true" ]]; then
 
   alias show=explorer.exe
   alias www='cd /mnt/c/star'
+  alias winip='cat /etc/resolv.conf'
+
+  ZSH_TMUX_AUTOSTART=true
 fi
 
 # zsh
@@ -150,7 +148,6 @@ plugins+=(
   zsh-syntax-highlighting
 )
 
-ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOCONNECT=true
 ZSH_TMUX_AUTOQUIT=false
 ZSH_TMUX_UNICODE=true
@@ -186,19 +183,24 @@ export LANG=en_US.UTF-8
 # NVM
 export NVM_DIR="$HOME/.nvm"
 
-# nvm() {
-#   echo "Lazy loading nvm..."
-#   # Remove nvm function
-#   unfunction "$0"
-#   # Load nvm
-#   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-#   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-#   # Call nvm
-#   $0 "$@"
-# }
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+nvm() {
+  # Remove nvm function
+  unfunction "$0"
+  # Load nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+  # Call nvm
+  $0 "$@"
+}
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
-command -v rbenv && export PATH="$(rbenv which ruby):$PATH"
+command -v rbenv>/dev/null && export PATH="$(rbenv which ruby):$PATH"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/sean/.sdkman"
+[[ -s "/home/sean/.sdkman/bin/sdkman-init.sh" ]] && source "/home/sean/.sdkman/bin/sdkman-init.sh"
+
+if [[ -r ~/.local.zshrc ]]; then
+  source ~/.local.zshrc
+fi
