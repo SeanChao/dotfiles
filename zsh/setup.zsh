@@ -5,9 +5,9 @@ GIT_ZSHTHEME_REPO="https://gist.github.com/ce275f06047a51b3d9a3bac7828dfea0.git"
 
 # install oh-my-zsh
 echo "Install oh-my-zsh"
-rm -rf ~/.oh-my-zsh
+sudo rm -rf ~/.oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-mv ~/.zshrc /tmp/.zshrc.old # remove old zshrc file
+[[ -f ~/.zshrc ]] && mv ~/.zshrc /tmp/.zshrc.old # remove old zshrc file
 
 ## clone chaos.zsh.theme
 echo "Install my theme"
