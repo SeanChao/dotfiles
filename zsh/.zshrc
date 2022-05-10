@@ -204,3 +204,5 @@ export SDKMAN_DIR="/home/sean/.sdkman"
 if [[ -r ~/.local.zshrc ]]; then
   source ~/.local.zshrc
 fi
+
+eval "$(starship init zsh)"
