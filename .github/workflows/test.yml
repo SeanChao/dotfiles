@@ -8,5 +8,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Try install
-        run: test/test.sh
+        run: ./install
 
