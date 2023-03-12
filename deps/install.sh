@@ -5,5 +5,4 @@ sudo ()
 }
 
 sudo apt-get update >/dev/null && \
-    sudo apt-get install -y curl python3 python3-pip tmux zsh && \
-    (command -v pip && pip install wakatime || exit 0)
+    sudo apt-get install -y curl python3 python3-pip tmux zsh

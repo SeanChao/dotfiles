@@ -23,29 +23,36 @@ export PATH="$PATH:$HOME/.yarn/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/sdk/go1.15/bin"
 export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/miniconda3/bin"
 [ -f $HOME/.cargo/env ] && source $HOME/.cargo/env
 
 # TMUX
 export EDITOR='vim'
 
 # WSL2
+if [[ -n $WSL_INTEROP ]]; then
+  IS_WSL=true
+else
+  IS_WSL=false
+fi
 if [[ $IS_WSL == "true" ]]; then
   if [ -z $WSL_ADDR ]; then
     WSL_ADDR=$(cat /etc/resolv.conf | grep nameserver | cut -d ' ' -f 2)
   fi
   export winip=$WSL_ADDR
-  export http_proxy=http://${winip}:${HTTP_PROXY_PORT}
-  export https_proxy=http://${winip}:${HTTP_PROXY_PORT}
-  export NO_PROXY="localhost,127.0.0.1"
-#  export DISPLAY=${winip}:0.0
+  if [[ $WSL_SET_PROXY == "true" ]]; then
+    export HTTP_PROXY=http://${winip}:${HTTP_PROXY_PORT}
+    export HTTPS_PROXY=http://${winip}:${HTTP_PROXY_PORT}
+    export NO_PROXY="localhost,127.0.0.1"
+    export docker_proxy="--env HTTP_PROXY=\"${http_proxy}\" --env HTTPS_PROXY=\"${https_proxy}\""
+    # git proxy in WSL2
+    git config --global http.proxy http://$winip:${HTTP_PROXY_PORT}
+    git config --global https.proxy http://$winip:${HTTP_PROXY_PORT}
+    git config --global ssh.proxy http://$winip:${HTTP_PROXY_PORT}
+  fi
   export c=/mnt/c
   export star=/mnt/c/star
   export dl="/mnt/c/Users/Sean/Downloads"
-  export docker_proxy="--env HTTP_PROXY=\"${http_proxy}\" --env HTTPS_PROXY=\"${https_proxy}\""
-  # git proxy in WSL2
-  git config --global http.proxy http://$winip:${HTTP_PROXY_PORT}
-  git config --global https.proxy http://$winip:${HTTP_PROXY_PORT}
-  git config --global ssh.proxy http://$winip:${HTTP_PROXY_PORT}
   # remove npm in windows installation
   PATH=$(echo "$PATH" | sed -e 's/\/mnt\/c\/Program Files\/nodejs://')
   PATH=$(echo "$PATH" | sed -e 's/\/mnt\/c\/Users\/jburkholder\/AppData\/Roaming\/npm://')
@@ -76,7 +83,6 @@ flag=$(($sec % 10))
 if [[ $flag -eq 0 ]]; then
   ZSH_THEME="random"
 else
-  ZSH_THEME="chaos"
 fi
 
 # Set list of themes to pick from when loading at random
