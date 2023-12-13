@@ -17,6 +17,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 # cp $THEME_DIR/chaos.zsh-theme ~/.oh-my-zsh/custom/themes/
 # [ ! -e $THEME_DIR ] || rm -rf /tmp/chaos-theme-tmp >/dev/null
 
-curl -sS https://starship.rs/install.sh | sh -s -- --yes
+mkdir -p ~/bin
+curl -sS https://starship.rs/install.sh | sh -s -- --yes -b ~/bin
 
 echo 'Run chsh -s $(which zsh) manually to set zsh as default shell'
