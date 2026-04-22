@@ -18,6 +18,8 @@
       description: Setup on-my-zsh
     - command: zsh zsh/plugins.zsh
       description: Install plugins
+    - command: zsh zsh/install-fzf.sh
+      description: Install fzf (fuzzy finder for Ctrl+R history search)
 
 - link:
     ~/.vimrc: vim/.vimrc

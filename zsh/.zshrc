@@ -18,6 +18,7 @@ bindkey "^[^[[C" forward-word
 
 # PATH
 export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/.fzf/bin"
 export PATH="$PATH:$HOME/.nvm/versions/node/*/bin"
 export PATH="$PATH:$HOME/.yarn/bin"
 export PATH="$PATH:$HOME/.local/bin"
@@ -207,8 +208,15 @@ command -v rbenv>/dev/null && export PATH="$(rbenv which ruby):$PATH"
 export SDKMAN_DIR="/home/sean/.sdkman"
 [[ -s "/home/sean/.sdkman/bin/sdkman-init.sh" ]] && source "/home/sean/.sdkman/bin/sdkman-init.sh"
 
-if [[ -r ~/.local.zshrc ]]; then
-  source ~/.local.zshrc
-fi
-
 eval "$(starship init zsh)"
+
+# fzf configuration for Ctrl+R history search
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Setup fzf key bindings and completion
+[ -f ~/.fzf/shell/key-bindings.zsh ] && source ~/.fzf/shell/key-bindings.zsh
+[ -f ~/.fzf/shell/completion.zsh ] && source ~/.fzf/shell/completion.zsh
+
+# Load local zsh configuration (machine-specific settings)
+# Loaded last so it can override any settings above
+# This file is not tracked in git, so you can safely add local customizations
+[[ -r ~/.zshrc.local ]] && source ~/.zshrc.local
